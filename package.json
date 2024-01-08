@@ -1,6 +1,7 @@
 {
   "name": "functions-ts-v4",
   "version": "1.0.0",
+  "main": "dist/src/functions/*.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
@@ -9,7 +10,7 @@
     "start": "func start"
   },
   "dependencies": {
-    "@azure/functions": "^3.5.1"
+    "@azure/functions": "^4.1.0"
   },
   "devDependencies": {
     "@types/node": "^18.19.5",

@@ -1,16 +1,22 @@
-import { Context, HttpRequest } from "@azure/functions";
+import {
+  HttpRequest,
+  HttpResponseInit,
+  InvocationContext,
+} from "@azure/functions";
 
 export default async function (
-  context: Context,
-  req: HttpRequest
-): Promise<void> {
+  request: HttpRequest,
+  context: InvocationContext
+): Promise<HttpResponseInit> {
   context.log("HTTP trigger function processed a request.");
-  const name = req.query.name || (req.body && req.body.name);
+  const body = await request.text();
+  const name =
+    request.query.get("name") || (body !== "" && JSON.parse(body).name);
   const responseMessage = name
     ? "Hello, " + name + ". This HTTP triggered function executed successfully."
     : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
 
-  context.res = {
+  return {
     status: 200,
     body: responseMessage,
   };
